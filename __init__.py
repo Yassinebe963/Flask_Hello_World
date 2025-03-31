@@ -6,7 +6,7 @@ app = Flask(__name__)
 def exercice(valeur):
     etoiles = ''
     for i in range(1, valeur + 1):
-        etoiles += '*' * i + '<br>'
+        etoiles += ' ' * (valeur - i) + '*' * i + '<br>'
     return etoiles
 
 if __name__ == "__main__":
