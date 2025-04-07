@@ -3,29 +3,26 @@ from flask import Flask
 app = Flask(__name__)
 
 @app.route('/<int:n>')
-def calcul_somme(n):
+def calcul_somme_securise(n):
     somme = 0
-    resultat = []
+    nombres_ajoutes = []
     
     for nombre in range(1, n + 1):
         if nombre % 11 == 0:
             continue
-        
-        if nombre % 5 == 0 or nombre % 7 == 0:
-            somme += nombre
-            resultat.append(str(nombre))
             
-            if somme > 5000:
-                return (
-                    f"Somme a dépassé 5000 !<br>"
-                    f"Nombres ajoutés: {', '.join(resultat)}<br>"
-                    f"Somme finale: {somme}"
-                )
+        if nombre % 5 == 0 or nombre % 7 == 0:
+            # Vérifie si l'ajout dépasserait 5000
+            if somme + nombre > 5000:
+                break  # Arrêt avant dépassement
+            
+            somme += nombre
+            nombres_ajoutes.append(str(nombre))
     
     return (
-        f"Calcul terminé pour n={n}<br>"
-        f"Nombres ajoutés: {', '.join(resultat)}<br>"
-        f"Somme finale: {somme}"
+        f"Résultat pour n={n}<br><br>"
+        f"Nombres ajoutés: {', '.join(nombres_ajoutes)}<br><br>"
+        f"Somme finale: {somme} (garantie ≤ 5000)"
     )
 
 if __name__ == '__main__':
