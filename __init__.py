@@ -11,13 +11,13 @@ def find_max(numbers):
         if not numbers_list:
             return "Aucun nombre fourni", 400
         
-        # Trouver le maximum manuellement
-        maximum = numbers_list[0]
+        # Trouver le minimum manuellement
+        minimum = numbers_list[0]
         for num in numbers_list[1:]:
-            if num > maximum:
-                maximum = num
+            if num < maximum:
+                minimum = num
                 
-        return f"Le maximum parmi {numbers_list} est {maximum}"
+        return f"Le minimum parmi {numbers_list} est {minimum}"
     
     except ValueError:
         return "Tous les segments doivent être des nombres valides", 400
