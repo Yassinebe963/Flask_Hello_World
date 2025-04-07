@@ -1,17 +1,15 @@
-from flask import Flask
-from flask import render_template
-from flask import json
-import sqlite3
-                                                                                                                                       
-app = Flask(__name__)                                                                                                                  
-                                                                                                                                       
-@app.route('/')
-def hello_world():
-    return "<h2>Bonjour tout le monde !</h2><p>Pour accéder à vos exerices cliquez <a href='./exercices/'>Ici</a></p>"
-
-@app.route('/exercices/')
-def exercices():
-    return render_template('exercices.html')
-                                                                                                               
-if __name__ == "__main__":
-  app.run(debug=True)
+n = 5
+for i in range(1, n + 1):
+    # Espaces à gauche pour centrer
+    print(' ' * (n - i), end='')
+    
+    # Partie croissante (1 à i)
+    for j in range(1, i + 1):
+        print(j, end='')
+    
+    # Partie décroissante (i-1 à 1)
+    for j in range(i - 1, 0, -1):
+        print(j, end='')
+    
+    # Nouvelle ligne
+    print()
