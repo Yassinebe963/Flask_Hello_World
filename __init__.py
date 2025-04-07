@@ -2,15 +2,17 @@ n = int(input("Entrez un nombre n : "))
 somme = 0
 
 for nombre in range(1, n + 1):
-    # Si divisible par 11, on passe au suivant
+    # Condition 1: Passer au suivant si divisible par 11
     if nombre % 11 == 0:
         continue
     
-    # Si divisible par 5 ou 7
+    # Condition 2: Ajouter si divisible par 5 ou 7
     if nombre % 5 == 0 or nombre % 7 == 0:
-        # Vérifie si l'ajout dépasserait 5000
-        if somme + nombre > 5000:
-            break  # Arrêt immédiat sans ajouter
-        somme += nombre  # Ajout sécurisé
+        somme += nombre
+    
+    # Condition 3: Arrêter si somme > 5000
+    if somme > 5000:
+        print("La somme a dépassé 5000 !")
+        break
 
-print(f"Somme finale (≤ 5000) : {somme}")
+print(f"La somme finale est : {somme}")
