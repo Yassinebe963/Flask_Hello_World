@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def pyramide():
-    n = 5
+    n = ""
     output = []
     for i in range(1, n + 1):
         # Construction de chaque ligne
