@@ -19,29 +19,7 @@ def pyramide(taille):
         droite = ''.join(map(str, range(i - 1, 0, -1)))
         lignes.append(espaces + gauche + droite)
     
-    # Créer le HTML
-    html = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Pyramide de taille {taille}</title>
-        <style>
-            body {{ font-family: monospace; text-align: center; }}
-            pre {{ margin: 0; }}
-            a {{ margin: 10px; }}
-        </style>
-    </head>
-    <body>
-        <h1>Pyramide (taille {taille})</h1>
-        <div id="pyramide">
-            {"".join(f"<pre>{ligne}</pre>" for ligne in lignes)}
-        </div>
-        <div>
-            {" ".join(f'<a href="/{n}">{n}</a>' for n in range(1, 11))}
-        </div>
-    </body>
-    </html>
-    """
+   
     return render_template_string(html)
 
 if __name__ == '__main__':
