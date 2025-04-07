@@ -1,17 +1,16 @@
-from flask import Flask
+n = int(input("Entrez un nombre n : "))
+somme = 0
 
-app = Flask(__name__)
-
-@app.route('/<int:n>')
-def fibo(n):
-    a, b = 0, 1
-    res = str(a)  # Initialisation avec le premier terme
+for nombre in range(1, n + 1):
+    # Si divisible par 11, on passe au suivant
+    if nombre % 11 == 0:
+        continue
     
-    for _ in range(1, min(n, 50)):  # Limité à 50 termes pour la sécurité
-        res += f", {b}"
-        a, b = b, a + b
-    
-    return res
+    # Si divisible par 5 ou 7
+    if nombre % 5 == 0 or nombre % 7 == 0:
+        # Vérifie si l'ajout dépasserait 5000
+        if somme + nombre > 5000:
+            break  # Arrêt immédiat sans ajouter
+        somme += nombre  # Ajout sécurisé
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+print(f"Somme finale (≤ 5000) : {somme}")
