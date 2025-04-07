@@ -1,11 +1,19 @@
-n = 5  # Vous pouvez modifier cette valeur ou demander à l'utilisateur
+from flask import Flask
 
-for i in range(1, n + 1):
-    # Partie gauche (espaces + nombres croissants)
-    ligne = ' ' * (n - i)  # Espaces pour centrer
-    ligne += ''.join(str(j) for j in range(1, i + 1))  # 1 -> i
+app = Flask(__name__)
+
+@app.route('/')
+def pyramide():
+    n = 5
+    output = []
+    for i in range(1, n + 1):
+        # Construction de chaque ligne
+        line = '&nbsp;' * (n - i)  # Espaces HTML
+        line += ''.join(map(str, range(1, i + 1)))
+        line += ''.join(map(str, range(i - 1, 0, -1)))
+        output.append(line + '<br>')
     
-    # Partie droite (nombres décroissants)
-    ligne += ''.join(str(j) for j in range(i - 1, 0, -1))  # i-1 -> 1
-    
-    print(ligne)  # Affiche la ligne complète
+    return '<pre>' + ''.join(output) + '</pre>'
+
+if __name__ == '__main__':
+    app.run()
