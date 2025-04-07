@@ -1,6 +1,6 @@
 from flask import Flask
 
-app = Flask(__name__)  # Correction: __name__ au lieu de name
+app = Flask(__name__) 
 
 @app.route('/<int:valeur>')
 def exercice(valeur):
@@ -15,5 +15,5 @@ def exercice(valeur):
         pyramide += ligne + '\n'
     return f"<pre>{pyramide}</pre>"
 
-if __name__ == "__main__":  # Correction: __name__ et __main__
+if __name__ == "__main__":  
     app.run(host='0.0.0.0', port=5000, debug=True)  # Ajout de host/port
