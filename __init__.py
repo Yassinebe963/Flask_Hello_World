@@ -1,18 +1,32 @@
-n = int(input("Entrez un nombre n : "))
-somme = 0
+from flask import Flask
 
-for nombre in range(1, n + 1):
-    # Condition 1: Passer au suivant si divisible par 11
-    if nombre % 11 == 0:
-        continue
-    
-    # Condition 2: Ajouter si divisible par 5 ou 7
-    if nombre % 5 == 0 or nombre % 7 == 0:
-        somme += nombre
-    
-    # Condition 3: Arrêter si somme > 5000
-    if somme > 5000:
-        print("La somme a dépassé 5000 !")
-        break
+app = Flask(__name__)
 
-print(f"La somme finale est : {somme}")
+@app.route('/<int:n>')
+def calcul_somme(n):
+    somme = 0
+    resultat = []
+    
+    for nombre in range(1, n + 1):
+        if nombre % 11 == 0:
+            continue
+        
+        if nombre % 5 == 0 or nombre % 7 == 0:
+            somme += nombre
+            resultat.append(str(nombre))
+            
+            if somme > 5000:
+                return (
+                    f"Somme a dépassé 5000 !<br>"
+                    f"Nombres ajoutés: {', '.join(resultat)}<br>"
+                    f"Somme finale: {somme}"
+                )
+    
+    return (
+        f"Calcul terminé pour n={n}<br>"
+        f"Nombres ajoutés: {', '.join(resultat)}<br>"
+        f"Somme finale: {somme}"
+    )
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
