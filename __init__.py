@@ -20,7 +20,7 @@ def pyramide(taille):
         lignes.append(espaces + gauche + droite)
     
    
-    return render_template_string(html)
+    
 
 if __name__ == '__main__':
     app.run()
