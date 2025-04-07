@@ -1,19 +1,31 @@
-from flask import Flask
+from flask import Flask, request
 
-app = Flask(__name__) 
+app = Flask(__name__)
 
-@app.route('/<int:valeur>')
-def exercice(valeur):
-    pyramide = ''
-    for i in range(1, valeur + 1):
-        ligne = ''
-        ligne += ' ' * (valeur - i)
-        for j in range(1, i + 1):
-            ligne += str(j)
-        for j in range(i - 1, 0, -1):
-            ligne += str(j)
-        pyramide += ligne + '\n'
-    return f"<pre>{pyramide}</pre>"
+@app.route('/')
+def formulaire():
+    return '''
+    <form action="/suite" method="get">
+        Entrez un nombre : <input type="number" name="valeur" min="2" required>
+        <input type="submit" value="Générer">
+    </form>
+    '''
 
-if __name__ == "__main__":  
-    app.run(host='0.0.0.0', port=5000, debug=True)  # Ajout de host/port
+@app.route('/suite')
+def calcul_suite():
+    try:
+        n = int(request.args.get('valeur', 2))
+    except ValueError:
+        return "Veuillez entrer un nombre valide", 400
+    
+    if n < 2:
+        return "Le nombre doit être au moins 2", 400
+    
+    suite = [0, 1]
+    for i in range(2, n):
+        suite.append(suite[-1] + suite[-2])
+    
+    return f"Suite pour n={n} : {', '.join(map(str, suite))}"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
