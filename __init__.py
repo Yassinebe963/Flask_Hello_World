@@ -15,5 +15,5 @@ def exercice(valeur):
         pyramide += ligne + '\n'
     return f"<pre>{pyramide}</pre>"
 
-if name == "main":
+if name == "main": 
     app.run(debug=True)
