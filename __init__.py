@@ -1,23 +1,19 @@
-from flask import Flask, request, render_template
+from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def pyramide():
-    taille = 5  # Valeur par défaut
-    lignes = []
+    n = 5
+    output = []
+    for i in range(1, n + 1):
+        # Construction de chaque ligne
+        line = '&nbsp;' * (n - i)  # Espaces HTML
+        line += ''.join(map(str, range(1, i + 1)))
+        line += ''.join(map(str, range(i - 1, 0, -1)))
+        output.append(line + '<br>')
     
-    if request.method == 'POST':
-        taille = int(request.form.get('taille', 5))
-    
-    # Génération de la pyramide
-    for i in range(1, taille + 1):
-        espaces = ' ' * (taille - i)
-        partie_gauche = ''.join(str(j) for j in range(1, i + 1))
-        partie_droite = ''.join(str(j) for j in range(i - 1, 0, -1))
-        lignes.append(f"{espaces}{partie_gauche}{partie_droite}")
-    
-    return render_template('pyramide.html', lignes=lignes, taille_actuelle=taille)
+    return '<pre>' + ''.join(output) + '</pre>'
 
 if __name__ == '__main__':
     app.run()
